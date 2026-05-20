@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Summer Camp 2026 Poster — AIC Jericho</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@700&family=DM+Sans:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#111;display:flex;align-items:flex-start;justify-content:center;min-height:100vh;padding:2rem;font-family:'DM Sans',sans-serif;}
+  .poster{width:680px;position:relative;overflow:hidden;background:#0a1f35;border-radius:4px;}
+  .bg-sky{position:absolute;inset:0;background:linear-gradient(175deg,#06112a 0%,#0a2744 35%,#0d4a6b 65%,#0a5d5d 85%,#0d5a2e 100%);}
+  .sun{position:absolute;top:70px;right:50px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#ffe066 0%,#f4a024 45%,#e8552e 80%,transparent 100%);box-shadow:0 0 60px 20px rgba(244,160,36,.3),0 0 120px 40px rgba(244,160,36,.1);}
+
+  /* Top bar */
+  .top-bar{position:relative;z-index:10;padding:24px 32px 0;display:flex;justify-content:space-between;align-items:center;}
+  .org-badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:7px 18px;display:flex;align-items:center;gap:8px;}
+  .org-dot{width:8px;height:8px;border-radius:50%;background:#f4a024;}
+  .org-text{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;}
+  .year-tag{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:3px;color:rgba(255,255,255,.3);}
+
+  /* Main title */
+  .title-wrap{position:relative;z-index:10;text-align:center;padding:24px 30px 0;}
+  .title-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px;}
+  .title-main{font-family:'Bebas Neue',sans-serif;font-size:9.5rem;line-height:.85;letter-spacing:6px;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.5);}
+  .title-camp{font-family:'Caveat',cursive;font-size:4.2rem;color:#f4a024;display:block;line-height:.9;text-shadow:0 2px 20px rgba(244,160,36,.5);}
+  .title-year-big{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:10px;color:rgba(255,255,255,.18);display:block;margin-top:.2rem;}
+
+  /* Photos collage */
+  .photos-collage{position:relative;z-index:10;margin:20px 32px 0;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:120px 120px;gap:8px;border-radius:16px;overflow:hidden;}
+  .col-photo{overflow:hidden;position:relative;}
+  .col-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+  .col-photo:hover img{transform:scale(1.06);}
+  .col-photo-big{grid-row:span 2;}
+  .col-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,31,53,.3),transparent);}
+  .col-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.65));color:rgba(255,255,255,.9);font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.5rem .7rem;}
+
+  /* Date ribbon */
+  .date-ribbon{position:relative;z-index:10;margin:18px 32px 0;background:linear-gradient(90deg,rgba(244,160,36,.2),rgba(244,160,36,.08));border:1px solid rgba(244,160,36,.45);border-radius:14px;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .dr-left{display:flex;align-items:center;gap:14px;}
+  .dr-icon{font-size:1.6rem;}
+  .dr-dates{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:#fff;line-height:1;}
+  .dr-month{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#f4a024;margin-top:2px;}
+  .dr-sep{width:1px;height:40px;background:rgba(255,255,255,.15);}
+  .dr-right{text-align:right;}
+  .dr-days{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#f4a024;line-height:1;}
+  .dr-days-label{font-size:.68rem;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.5);text-transform:uppercase;}
+
+  /* Activities */
+  .activities-wrap{position:relative;z-index:10;margin:16px 32px 0;}
+  .act-label{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;}
+  .acts{display:flex;gap:8px;flex-wrap:wrap;}
+  .act-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:6px 14px;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.85);}
+  .act-pill span{font-size:.95rem;}
+
+  /* Cost + Venue */
+  .cost-wrap{position:relative;z-index:10;margin:16px 32px 0;display:flex;gap:12px;}
+  .cost-box{flex:1;background:linear-gradient(135deg,rgba(244,160,36,.25),rgba(232,85,46,.15));border:2px solid rgba(244,160,36,.6);border-radius:16px;padding:18px 22px;display:flex;align-items:center;gap:14px;}
+  .cost-num{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:#f4a024;line-height:1;letter-spacing:1px;}
+  .cost-detail{font-size:.7rem;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+  .venue-box{flex:1;background:rgba(45,122,58,.2);border:1px solid rgba(45,122,58,.4);border-radius:16px;padding:18px 22px;display:flex;align-items:center;gap:12px;}
+  .venue-name{font-weight:700;font-size:.9rem;color:#fff;line-height:1.3;}
+  .venue-loc{font-size:.7rem;color:rgba(255,255,255,.5);margin-top:3px;}
+
+  /* Tagline */
+  .tagline{position:relative;z-index:10;text-align:center;margin:18px 32px 28px;padding:14px;background:rgba(0,0,0,.25);border-radius:10px;border-top:2px solid rgba(244,160,36,.3);}
+  .tagline-text{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:4px;color:#fff;opacity:.7;}
+  .tagline-sub{font-size:.68rem;letter-spacing:2px;color:rgba(255,255,255,.35);text-transform:uppercase;margin-top:3px;}
+
+  /* Album QR area */
+  .album-link{position:relative;z-index:10;text-align:center;margin:-10px 32px 24px;font-size:.72rem;color:rgba(255,255,255,.35);letter-spacing:1px;}
+  .album-link a{color:rgba(244,160,36,.7);text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="bg-sky"></div>
+  <div class="sun"></div>
+
+  <div class="top-bar">
+    <div class="org-badge"><div class="org-dot"></div><div class="org-text">AIC Jericho Youth Ministry</div></div>
+    <div class="year-tag">2026</div>
+  </div>
+
+  <div class="title-wrap">
+    <div class="title-eyebrow">You are invited to</div>
+    <div class="title-main">
+      SUMMER
+      <span class="title-camp">Camp</span>
+      <span class="title-year-big">TWO THOUSAND TWENTY SIX</span>
+    </div>
+  </div>
+
+  <!-- REAL CAMP PHOTOS COLLAGE -->
+  <div class="photos-collage">
+    <div class="col-photo col-photo-big">
+      <img src="https://lh3.googleusercontent.com/share/AF1QipOExeZ5xJKDrtFNtBeyE5HA0iF7hnxQehAhGGD9jNoLk6cjP9oywdm0-FpTyjGKkA/photo/AF1QipNBfVLyvP66E_nT75iqgOE2f0cf-JxW7qQNX-2b?key=ZGJtRXhWVllRcWxQaW0yNF9hMDBvOEd1WHdXRE5B" 
+           onerror="this.src='https://lh3.googleusercontent.com/pw/AP1GczMu3lhMS6Ro5PMKohDclE-27RQOtdRS5MiMWbXodz4dD49OHhHJrtDeIePxiBy8dMSOkbpR4zMtS3xRjNbgWxyZQfeYyl7axdEdmiabt10hWeUoF4Y=w800'"
+           alt="Camp 2025"/>
+      <div class="col-overlay"></div>
+      <div class="col-label">Camp 2025</div>
+    </div>
+    <div class="col-photo">
+      <img src="https://lh3.googleusercontent.com/share/AF1QipOExeZ5xJKDrtFNtBeyE5HA0iF7hnxQehAhGGD9jNoLk6cjP9oywdm0-FpTyjGKkA/photo/AF1QipMt-S0UQwPkMxZvI6zb1keZTJzd_RFpKE71MIf7?key=ZGJtRXhWVllRcWxQaW0yNF9hMDBvOEd1WHdXRE5B"
+           onerror="this.style.background='#1a3a5a'"
+           alt="Camp activity"/>
+      <div class="col-overlay"></div>
+    </div>
+    <div class="col-photo">
+      <img src="https://lh3.googleusercontent.com/share/AF1QipOExeZ5xJKDrtFNtBeyE5HA0iF7hnxQehAhGGD9jNoLk6cjP9oywdm0-FpTyjGKkA/photo/AF1QipM00ctzX5Y9zlbZEnMtiAAYp7a190vKKho-ek8w?key=ZGJtRXhWVllRcWxQaW0yNF9hMDBvOEd1WHdXRE5B"
+           onerror="this.style.background='#1a3a5a'"
+           alt="Swimming"/>
+      <div class="col-overlay"></div>
+    </div>
+    <div class="col-photo">
+      <img src="https://lh3.googleusercontent.com/share/AF1QipOExeZ5xJKDrtFNtBeyE5HA0iF7hnxQehAhGGD9jNoLk6cjP9oywdm0-FpTyjGKkA/photo/AF1QipNFZPcfF5penYcOzzhZUcl773mgWiyxcfegJMw5?key=ZGJtRXhWVllRcWxQaW0yNF9hMDBvOEd1WHdXRE5B"
+           onerror="this.style.background='#1a3a5a'"
+           alt="Team building"/>
+      <div class="col-overlay"></div>
+    </div>
+    <div class="col-photo">
+      <img src="https://lh3.googleusercontent.com/share/AF1QipOExeZ5xJKDrtFNtBeyE5HA0iF7hnxQehAhGGD9jNoLk6cjP9oywdm0-FpTyjGKkA/photo/AF1QipMoIUNN_e2scrsnMZMqiThhsVHEnjjr0-Ntsfeh?key=ZGJtRXhWVllRcWxQaW0yNF9hMDBvOEd1WHdXRE5B"
+           onerror="this.style.background='#1a3a5a'"
+           alt="Camp games"/>
+      <div class="col-overlay"></div>
+    </div>
+  </div>
+
+  <div class="date-ribbon">
+    <div class="dr-left">
+      <div class="dr-icon">📅</div>
+      <div><div class="dr-dates">AUG 16TH – 21ST</div><div class="dr-month">August 2026</div></div>
+    </div>
+    <div class="dr-sep"></div>
+    <div class="dr-right"><div class="dr-days">6 DAYS</div><div class="dr-days-label">of adventure & faith</div></div>
+  </div>
+
+  <div class="activities-wrap">
+    <div class="act-label">Activities</div>
+    <div class="acts">
+      <div class="act-pill"><span>📖</span> Bible Discussions</div>
+      <div class="act-pill"><span>🤝</span> Team Building</div>
+      <div class="act-pill"><span>🏊</span> Swimming</div>
+      <div class="act-pill"><span>🎮</span> Games</div>
+      <div class="act-pill"><span>🌿</span> Nature Trail</div>
+    </div>
+  </div>
+
+  <div class="cost-wrap">
+    <div class="cost-box">
+      <div style="font-size:2rem;">💰</div>
+      <div><div class="cost-num">6,000/=</div><div class="cost-detail">Registration fee (KES)</div></div>
+    </div>
+    <div class="venue-box">
+      <div style="font-size:2rem;">📍</div>
+      <div><div class="venue-name">Mombasa Baptist High School</div><div class="venue-loc">Mombasa, Kenya</div></div>
+    </div>
+  </div>
+
+  <div class="tagline">
+    <div class="tagline-text">FAITH · FRIENDSHIP · ADVENTURE</div>
+    <div class="tagline-sub">AIC Jericho Youth Ministry · Summer Camp 2026</div>
+  </div>
+
+  <div class="album-link">
+    See Camp 2025 memories: <a href="https://photos.app.goo.gl/sxH75qhFapFZMQym7" target="_blank">photos.app.goo.gl/sxH75qhFapFZMQym7</a>
+  </div>
+</div>
+</body>
+</html>
