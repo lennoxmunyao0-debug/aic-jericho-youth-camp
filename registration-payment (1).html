@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Payment – M-Pesa</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00b300;
+    --green-light: #00d900;
+    --green-dark: #007a00;
+    --green-glow: rgba(0,179,0,0.18);
+    --bg: #0a0f0a;
+    --surface: #111711;
+    --surface2: #182018;
+    --border: rgba(0,179,0,0.18);
+    --text: #e8f5e8;
+    --muted: #7aaa7a;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 10%, rgba(0,179,0,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(0,100,0,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header badge */
+  .mpesa-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    animation: fadeDown 0.5s ease both;
+  }
+  .mpesa-logo {
+    width: 48px; height: 48px;
+    background: var(--green);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+    letter-spacing: -0.5px;
+    box-shadow: 0 0 20px var(--green-glow);
+  }
+  .mpesa-label { line-height: 1.2; }
+  .mpesa-label strong { display: block; font-size: 17px; font-weight: 800; color: var(--white); }
+  .mpesa-label span { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px 28px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,179,0,0.05);
+    animation: fadeUp 0.55s ease both 0.1s;
+  }
+
+  .card-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .card-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  /* Camp fee box */
+  .fee-box {
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    border: 1px solid rgba(197,158,51,0.35);
+    box-shadow: 0 0 28px rgba(197,158,51,0.08);
+  }
+  .fee-box-header {
+    background: linear-gradient(135deg, #3a2c00, #1e1800);
+    padding: 11px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(197,158,51,0.25);
+  }
+  .fee-box-header span {
+    font-size: 11px;
+    font-weight: 700;
+    color: #c59e33;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .fee-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #1a1400, #120f00);
+    border-bottom: 1px solid rgba(197,158,51,0.12);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .fee-row:last-child { border-bottom: none; }
+  .fee-row::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #f0c040, #c59e33);
+    border-radius: 0 2px 2px 0;
+  }
+  .fee-row-left { display: flex; flex-direction: column; gap: 2px; }
+  .fee-row-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: #f0c040;
+  }
+  .fee-row-desc {
+    font-size: 11px;
+    color: #8a7030;
+    font-weight: 500;
+  }
+  .fee-row-amount {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: #f0c040;
+    text-shadow: 0 0 16px rgba(240,192,64,0.35);
+  }
+  .fee-row-amount span {
+    font-size: 12px;
+    color: #a07828;
+    font-weight: 400;
+    margin-right: 2px;
+  }
+
+  /* Steps */
+  .steps-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 14px;
+  }
+  .steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    background: var(--surface2);
+    border: 1px solid rgba(0,179,0,0.1);
+    border-radius: 12px;
+    transition: border-color 0.2s;
+  }
+  .step:hover { border-color: rgba(0,179,0,0.3); }
+  .step-num {
+    width: 24px; height: 24px; flex-shrink: 0;
+    background: var(--green-dark);
+    border: 1px solid rgba(0,255,0,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    color: #7aff7a;
+  }
+  .step-text { font-size: 13.5px; color: var(--text); line-height: 1.45; }
+  .step-text strong { color: var(--white); font-weight: 700; }
+  .step-text code {
+    font-family: 'Space Mono', monospace;
+    background: rgba(0,179,0,0.12);
+    color: #7aff7a;
+    padding: 1px 6px;
+    border-radius: 5px;
+    font-size: 12.5px;
+  }
+
+  /* Divider */
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 24px 0;
+    font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* Paybill box */
+  .paybill-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .paybill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(0,179,0,0.08);
+    gap: 12px;
+  }
+  .paybill-row:last-child { border-bottom: none; }
+  .paybill-row-label { font-size: 12px; color: var(--muted); font-weight: 600; min-width: 90px; }
+  .paybill-row-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    text-align: right;
+  }
+  .copy-btn {
+    background: rgba(0,179,0,0.1);
+    border: 1px solid rgba(0,179,0,0.25);
+    color: #7aff7a;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: all 0.15s;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .copy-btn:hover { background: rgba(0,179,0,0.2); }
+  .copy-btn.copied { color: #fff; background: var(--green); border-color: var(--green); }
+
+  /* Confirm button */
+  .confirm-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    border: none;
+    border-radius: 14px;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 24px rgba(0,179,0,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .confirm-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1), transparent);
+    pointer-events: none;
+  }
+  .confirm-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 32px rgba(0,179,0,0.45); }
+  .confirm-btn:active { transform: translateY(0); }
+
+  /* Note */
+  .note {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    background: rgba(255,200,0,0.05);
+    border: 1px solid rgba(255,200,0,0.15);
+    border-radius: 10px;
+    font-size: 12px;
+    color: #c8a84a;
+    line-height: 1.5;
+  }
+  .note-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+
+  /* Modal overlay */
+  .overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+  }
+  .overlay.show { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 36px 28px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  .modal-icon {
+    width: 64px; height: 64px;
+    background: rgba(0,179,0,0.12);
+    border: 2px solid var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 20px;
+  }
+  .modal h2 { font-size: 20px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+  .modal p { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+  .modal-close {
+    width: 100%;
+    padding: 14px;
+    background: var(--green);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-14px); } to { opacity:1; transform:none; } }
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(18px);  } to { opacity:1; transform:none; } }
+  @keyframes popIn    { from { opacity:0; transform:scale(0.85); }       to { opacity:1; transform:scale(1); } }
+</style>
+</head>
+<body>
+
+
+<div class="container">
+  <div class="mpesa-badge">
+    <div class="mpesa-logo">M</div>
+    <div class="mpesa-label">
+      <strong>M-Pesa Payment</strong>
+      <span>Secure Mobile Registration Fee</span> 
+      <br><hr>
+      <span><a href="index.html">Back home</a></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Complete Your Registration</div>
+    <div class="card-sub">Pay via M-Pesa to confirm your spot</div>
+
+    <div class="fee-box">
+      <div class="fee-box-header">
+        <span>⛺ Camp Registration Fee</span>
+      </div>
+      <div class="fee-row">
+        <div class="fee-row-left">
+          <div class="fee-row-name">Jericho</div>
+          <div class="fee-row-desc">Jericho residents</div>
+        </div>
+        <div class="fee-row-amount"><span>KES</span>6,000</div>
+      </div>
+      <div class="fee-row">
+        <div class="fee-row-left">
+          <div class="fee-row-name">Others</div>
+          <div class="fee-row-desc">All other participants</div>
+        </div>
+        <div class="fee-row-amount"><span>KES</span>8,000</div>
+      </div>
+    </div>
+
+    <div class="steps-title">How to Pay</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Go to <strong>M-Pesa</strong> on your phone → tap <strong>Send Money</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Enter number <code>0719 191 378</code> — the name <strong>Urbanus Mutinda</strong> will appear. Confirm it's correct.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Enter the registration fee amount, then your <strong>M-Pesa PIN</strong> and press <strong>OK</strong>.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">You will receive an <strong>M-Pesa confirmation SMS</strong>. </div>
+      </div>
+    </div>
+
+    <div class="divider">Payment Details</div>
+
+    <div class="paybill-box">
+      <div class="paybill-row">
+        <span class="paybill-row-label">Send To</span>
+        <span class="paybill-row-value">0719 191 378</span>
+        <button class="copy-btn" onclick="copyText(this, '0719191378')">Copy</button>
+      </div>
+      <div class="paybill-row">
+        <span class="paybill-row-label">Account Name</span>
+        <span class="paybill-row-value" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;">Urbanus Mutinda</span>
+      </div>
+      <div class="paybill-row">
+        <span class="paybill-row-label">Network</span>
+        <span class="paybill-row-value" style="color:var(--green);font-family:'Plus Jakarta Sans',sans-serif;">Safaricom M-Pesa</span>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="note-icon">⚠️</span>
+      <span>Ensure the name shown on M-Pesa is <strong>Urbanus Mutinda</strong> before sending.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Success modal -->
+<div class="overlay" id="successOverlay">
+  <div class="modal">
+    <div class="modal-icon">✓</div>
+    <h2>Payment Confirmed!</h2>
+    <p>Your payment has been received. Your registration is now complete. Check your email for a confirmation receipt.</p>
+    <button class="modal-close" onclick="closeModal()">Done</button>
+  </div>
+</div>
+
+<script>
+  function copyText(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    }).catch(() => {
+      // fallback
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function confirmPayment() {
+    document.getElementById('successOverlay').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('successOverlay').classList.remove('show');
+  }
+</script>
+</body>
+</html>

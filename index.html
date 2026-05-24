@@ -9,6 +9,7 @@
   
 </style>
 <link rel="stylesheet" href="assets/styles.css">
+<link rel="canonical" href="registration-payment (1).html">
 </head>
 <body>
 
@@ -19,9 +20,9 @@
     <a href="#activities">Activities</a>
     <a href="#schedule">Schedule</a>
     <a href="#venue">Venue</a>
-    <a href="https://wa.link/hspalt">Register</a>
+  
   </div>
-  <a href="https://wa.link/hspalt" class="nav-cta">Register Now</a>
+  <a href="registration-payment (1).html" class="nav-cta">Register Now</a>
 </nav>
 
 <!-- HERO -->
@@ -49,6 +50,26 @@
     <div class="hero-cta">
       <a href="https://wa.link/hspalt" class="btn-primary">Register — KES 6,000</a>
       <a href="#gallery" class="btn-secondary">See Last Camp's Photos</a>
+      <hr>
+    <div>  
+      </div>
+      <div class="units">
+      <div class="unit u-d"><span class="unum" id="cd-d">--</span><span class="ulbl">Days</span></div>
+      <div class="unit u-h"><span class="unum" id="cd-h">--</span><span class="ulbl">Hours</span></div>
+      <div class="unit u-m"><span class="unum" id="cd-m">--</span><span class="ulbl">Mins</span></div>
+      <div class="unit u-s"><span class="unum" id="cd-s">--</span><span class="ulbl">Secs</span></div>
+    </div>
+    <div class="pbar-wrap">
+    <div class="pbar-top"><span></span><span id="cd-pct"></span><span></span></div>
+    <div class="pbar-track"><div class="pbar-fill" id="cd-bar" style="width:0%"></div></div>
+    </div>
+
+    <div class="stats">
+    <div class="st"><span class="stnum" id="cd-wk">--</span><span class="stlbl">Weeks left</span></div>
+    <div class="st"><span class="stnum">6</span><span class="stlbl">Camp days</span></div>
+    <div class="st"><span class="stnum">5</span><span class="stlbl">Activities</span></div>
+    </div>
+
     </div>
   </div>
 </section>
@@ -126,7 +147,7 @@
             <div class="include-item"><div class="include-icon">🍽️</div>All meals included</div>
             <div class="include-item"><div class="include-icon">🏊</div>Swimming & all activities</div>
             <div class="include-item"><div class="include-icon">📖</div>Bible sessions & devotionals</div>
-            <div class="include-item"><div class="include-icon">🎽</div>Camp T-shirt (limited)</div>
+            
           </div>
         </div>
       </div>
@@ -155,10 +176,10 @@
     <p class="section-eyebrow">More from Camp 2025</p>
     <h2 class="section-title">The fun was <em>real</em></h2>
     <div class="photo-strip">
-      <div class="strip-photo"><img src="assets\images\IMG_2943 (2).jpg" onerror="this.style.background='#1a3a4a'" alt="Camp 2025"/></div>
+      <div class="strip-photo"><img src="assets\images\IMG_2943 (1)-min (2).jpg" onerror="this.style.background='#1a3a4a'" alt="Camp 2025"/></div>
       <div class="strip-photo"><img src="assets\images\IMG_3017.jpg" onerror="this.style.background='#1a3a4a'" alt="Camp 2025"/></div>
       <div class="strip-photo"><img src="assets\images\IMG_2951.jpg" onerror="this.style.background='#1a3a4a'" alt="Camp 2025"/></div>
-      <div class="strip-photo"><img src="assets\images\IMG_3012 (2).jpg" onerror="this.style.background='#1a3a4a'" alt="Camp 2025"/></div>
+      <div class="strip-photo"><img src="assets\images\IMG_3012.jpg" onerror="this.style.background='#1a3a4a'" alt="Camp 2025"/></div>
     </div>
     <p style="text-align:center;margin-top:1.5rem;"><a href="https://photos.app.goo.gl/sxH75qhFapFZMQym7" target="_blank" style="color:var(--sun);font-size:.9rem;text-decoration:none;">View full Camp 2025 album →</a></p>
   </div>
@@ -197,11 +218,9 @@
         </div>
       </div>
       <div class="venue-photo">
-        <a href="https://maps.app.goo.gl/DSS78TnchoDvxLgB7" target="_blank">
-          <img src="assets\images\Screenshot 2026-05-20 174839.png" 
-               onerror="this.style.background='#1a3a4a'"
-               alt="Camp venue Mombasa" style="width:100%;height:100%;object-fit:cover;"/>
-        </a>
+        <a href="https://maps.app.goo.gl/DSS78TnchoDvxLgB7"><img src="assets\images\Screenshot 2026-05-20 174839.png" 
+             onerror="this.style.background='#1a3a4a'"
+             alt="Camp venue Mombasa" style="width:100%;height:100%;object-fit:cover;"/>
       </div>
     </div>
   </div>
@@ -241,5 +260,55 @@
     <div class="footer-copy">© 2026 AIC Jericho Youth Ministry · Mombasa Baptist High School · Aug 16–21, 2026 · KES 6,000</div>
   </div>
 </footer>
+
+<!-- script for countdown timer -->
+<script>
+(function(){
+  var target = new Date('2026-08-16T00:00:00');
+  var start  = new Date('2026-05-24T00:00:00');
+  var total  = target - start;
+  var prev   = -1;
+
+  function pad(n){ return String(Math.max(0,n)).padStart(2,'0'); }
+
+  function pop(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.classList.remove('pop');
+    void el.offsetWidth;
+    el.classList.add('pop');
+  }
+
+  function tick(){
+    var now  = new Date();
+    var diff = Math.max(0, target - now);
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000)  / 60000);
+    var s = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('cd-d').textContent  = d;
+    document.getElementById('cd-h').textContent  = pad(h);
+    document.getElementById('cd-m').textContent  = pad(m);
+    document.getElementById('cd-wk').textContent = Math.floor(d / 7);
+
+    if(s !== prev){
+      document.getElementById('cd-s').textContent = pad(s);
+      pop('cd-s');
+      if(s === 0) pop('cd-m');
+      if(s === 0 && m === 0) pop('cd-h');
+      if(s === 0 && m === 0 && h === 0) pop('cd-d');
+      prev = s;
+    }
+
+    var pct = Math.min(100, Math.round((total - diff) / total * 100));
+    document.getElementById('cd-bar').style.width = pct + '%';
+    document.getElementById('cd-pct').textContent = pct + '% there';
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
 </body>
 </html>
